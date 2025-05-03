@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function Sidebar({ setFilters, onFilterChange }) {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedMinPrice, setSelectedMinPrice] = useState('500');
-  const [selectedMaxPrice, setSelectedMaxPrice] = useState('2000');
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedMinPrice, setSelectedMinPrice] = useState("500");
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState("2000");
 
   useEffect(() => {
     onFilterChange();
@@ -24,12 +24,10 @@ function Sidebar({ setFilters, onFilterChange }) {
   };
 
   return (
-    <div className="border border-gray-300 w-[350px] p-4 bg-white flex flex-col h-[100%]">
+    <div className="border border-gray-300 w-full md:w-[280px] p-4 bg-white flex flex-col  sticky top-0 rounded-lg">
       <h2 className="text-xl font-bold mb-4">Filters</h2>
 
-      {/* Main Filters Section */}
       <div className="flex-1">
-        {/* Category Filter */}
         <div className="mb-4">
           <h3 className="font-medium">Category</h3>
           <select
@@ -48,8 +46,8 @@ function Sidebar({ setFilters, onFilterChange }) {
         {/* Price Range Filter */}
         <div className="mb-4">
           <h3 className="font-medium">Price Range</h3>
-          <div className="flex justify-between gap-2">
-            <div className="w-1/2">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="w-full sm:w-1/2">
               <h4 className="font-medium">Min</h4>
               <select
                 value={selectedMinPrice}
@@ -62,7 +60,7 @@ function Sidebar({ setFilters, onFilterChange }) {
                 <option value="2000">2000</option>
               </select>
             </div>
-            <div className="w-1/2">
+            <div className="w-full sm:w-1/2">
               <h4 className="font-medium">Max</h4>
               <select
                 value={selectedMaxPrice}
@@ -81,7 +79,6 @@ function Sidebar({ setFilters, onFilterChange }) {
         </div>
       </div>
 
-      {/* Button Fixed at Bottom */}
       <button
         onClick={handlePriceChange}
         className="mt-auto w-full p-2 bg-black text-white rounded"

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { addProductService, deleteProductById, fetchAllProductService } from '../../services/productService' 
+import { addProductService, deleteProductById, fetchAllProductService, updateProductById } from '../../services/productService' 
 
 export const addNewProduct = createAsyncThunk(
     "product/create",
@@ -37,3 +37,20 @@ export const fetchAllProducts = createAsyncThunk(
       }
     }
   );
+
+  export const updateProduct = createAsyncThunk(
+    'product/update',
+    async ({ id, updateData }, { rejectWithValue }) => {
+      try {
+        console.log('actin udated', id, updateData);
+        
+        const response = await updateProductById(id, updateData);
+        return response;
+      } catch (error) {
+        return rejectWithValue(
+          error.response?.data?.message || 'Failed to update product'
+        );
+      }
+    }
+  );
+  

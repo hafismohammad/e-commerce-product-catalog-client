@@ -20,11 +20,11 @@ export const addProductService = async (productData) => {
 export const fetchAllProductService = async (filter) => {
   try {
     const queryParams = new URLSearchParams(filter).toString();
-    console.log('queryParams',queryParams);
+    // console.log('queryParams',queryParams);
     
     const response = await axios.get(`${API_URL}/api/products?${queryParams}`);
 
-    console.log('res servie', response);
+    // console.log('res servie', response);
     
     return response.data; 
   } catch (error) {
@@ -48,9 +48,27 @@ export const fetchProductById = async (id) => {
 export const deleteProductById = async (id) => {
   try {
     const response = await axios.delete(`${API_URL}/api/products/${id}`);
-console.log('res',response);
+;
 
     
+    return response.data; 
+  } catch (error) {
+    console.error("Error in get product service:", error);
+    throw error; 
+  }
+};
+
+export const updateProductById = async (id, updatedData) => {
+  try {
+    console.log('update service', id, updatedData);
+    
+
+
+    const response = await axios.put(`${API_URL}/api/products/${id}`,updatedData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data; 
   } catch (error) {
     console.error("Error in get product service:", error);
