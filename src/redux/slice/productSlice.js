@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addNewProduct, fetchAllProducts } from '../actions/productActions';  
+import { addNewProduct, deleteProduct, fetchAllProducts } from '../actions/productActions';  
 
 
 const initialState = {
@@ -21,9 +21,9 @@ const initialState = {
         })
         .addCase(addNewProduct.fulfilled, (state, action) => {
             state.loading = false;
-            // console.log('action.payload',action.payload);
+            // console.log('action.payload add product',action.payload);
             
-            state.products.push(action.payload); 
+            state.products.push(action.payload.data); 
         })
         .addCase(addNewProduct.rejected, (state, action) => {
             state.loading = false;
@@ -41,6 +41,20 @@ const initialState = {
           state.loading = false;
           state.error = action.payload;
         })
+        
+        .addCase(deleteProduct.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(deleteProduct.fulfilled, (state, action) => {
+          state.loading = false;
+          console.log('delete action.payload',action.payload);
+          
+          state.products = state.products.filter((prod) => prod._id !== action.payload.data._id); 
+        })
+        .addCase(deleteProduct.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        });
 
         // .addCase(updateProduct.pending, (state) => {
         //   state.loading = true;
@@ -57,17 +71,6 @@ const initialState = {
         //   state.error = action.payload;
         // })
   
-        // .addCase(deleteProduct.pending, (state) => {
-        //   state.loading = true;
-        // })
-        // .addCase(deleteProduct.fulfilled, (state, action) => {
-        //   state.loading = false;
-        //   state.products = state.products.filter((prod) => prod._id !== action.payload); // Removing deleted product
-        // })
-        // .addCase(deleteProduct.rejected, (state, action) => {
-        //   state.loading = false;
-        //   state.error = action.payload;
-        // });
     },
   });
   

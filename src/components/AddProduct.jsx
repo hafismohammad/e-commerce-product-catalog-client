@@ -3,6 +3,7 @@ import { FiUpload } from "react-icons/fi";
 import { useDispatch } from 'react-redux';
 import { addNewProduct } from "../redux/actions/productActions";
 import ProductSearch from "./ProductSearch";
+import { toast, Toaster } from 'react-hot-toast'
 
 function AddProduct({ searchTerm, setSearchTerm, onSearch }) {
   const [productName, setProductName] = useState("");
@@ -69,9 +70,22 @@ function AddProduct({ searchTerm, setSearchTerm, onSearch }) {
         formData.append("image", imageFile);
 
         const response = await dispatch(addNewProduct(formData));
-        handleClose()
-        console.log("Product saved!", response.data);
+        if (response.meta.requestStatus === "fulfilled") {
+          toast.success("Product successfully added");
+          setProductName("");
+          setDescription("");
+          setProductPrice("");
+          setCategory("");
+          setImageFile(null);
+          setImagePreview(null);
+          handleClose();
+          console.log("Product saved!", response.payload);
+        } else {
+          toast.error("Failed to add product");
+          console.error("Add product error:", response);
+        }
       } catch (error) {
+        toast.error("Something went wrong!");
         console.error("Error saving product:", error);
       }
     }
@@ -84,6 +98,7 @@ function AddProduct({ searchTerm, setSearchTerm, onSearch }) {
   return (
     <>
   <div className="flex items-center justify-between px-6 mt-6 ">
+    <Toaster />
   <ProductSearch
     searchTerm={searchTerm}
     setSearchTerm={setSearchTerm}

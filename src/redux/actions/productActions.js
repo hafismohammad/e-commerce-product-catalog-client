@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { addProductService, fetchAllProductService } from '../../services/productService' 
+import { addProductService, deleteProductById, fetchAllProductService } from '../../services/productService' 
 
 export const addNewProduct = createAsyncThunk(
     "product/create",
@@ -22,6 +22,18 @@ export const fetchAllProducts = createAsyncThunk(
         return response; 
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || 'Failed to fetch products');
+      }
+    }
+  );
+
+  export const deleteProduct = createAsyncThunk(
+    'product/delete',
+    async (id, { rejectWithValue }) => {
+      try {
+        const response =  await deleteProductById(id)
+        return response; 
+      } catch (error) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to delete products');
       }
     }
   );

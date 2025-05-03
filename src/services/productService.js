@@ -28,7 +28,32 @@ export const fetchAllProductService = async (filter) => {
     
     return response.data; 
   } catch (error) {
-    console.error("Error in add new product service:", error);
+    console.error("Error in filter product service:", error);
+    throw error; 
+  }
+};
+
+export const fetchProductById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/api/products/${id}`);
+
+    
+    return response.data; 
+  } catch (error) {
+    console.error("Error in get product service:", error);
+    throw error; 
+  }
+};
+
+export const deleteProductById = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}/api/products/${id}`);
+console.log('res',response);
+
+    
+    return response.data; 
+  } catch (error) {
+    console.error("Error in get product service:", error);
     throw error; 
   }
 };

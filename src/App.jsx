@@ -1,19 +1,18 @@
-
-import './App.css'
-import Home from './pages/Home'
-import { Provider } from 'react-redux';
-import store from './redux/store'; 
+import ProductDetails from "./components/ProductDetails";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
- 
-
   return (
-     <div>
-      <Provider store={store}>
-      <Home />
-      </Provider>
-     </div>
-  )
+    <>
+      <Router>
+        <Routes> 
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+        </Routes>
+      </Router>
+    </>
+  );
 }
-
-export default App
+///:slug
+export default App;
