@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { deleteProduct, updateProduct } from "../redux/actions/productActions";
 import Navbar from "./Navbar";
 import Loading from "./Spinner";
+import formatIndianPrice from "../utils/FormatIndianPrice";
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -145,7 +146,7 @@ function ProductDetails() {
 
             <div className="pt-4 border-t border-gray-200">
               <h2 className="text-2xl font-semibold text-cyan-700">
-                ₹{product.price}
+                ₹{formatIndianPrice(product.price)}
               </h2>
               <div className="mt-4 flex flex-col md:flex-row gap-4">
                 <button

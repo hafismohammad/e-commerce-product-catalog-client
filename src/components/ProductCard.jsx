@@ -1,5 +1,8 @@
+import formatIndianPrice from "../utils/FormatIndianPrice"
 
 function ProductCards({product}) {
+ 
+  
     return (
       <div className="border border-gray-300 rounded-xl bg-white p-3 shadow hover:shadow-md transition">
       <img
@@ -10,7 +13,7 @@ function ProductCards({product}) {
       <div className="space-y-1">
         <p className="font-semibold text-lg">{product.productName}</p>
         <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
-        <h1 className="text-cyan-700 font-bold text-lg">₹{product.price}</h1>
+        <h1 className="text-cyan-700 font-bold text-lg">₹{formatIndianPrice(product.price)}</h1>
       </div>
     </div>
     )
