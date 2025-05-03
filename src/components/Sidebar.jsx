@@ -1,28 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-function Sidebar({ setFilters }) {
+function Sidebar({ setFilters, onFilterChange }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedMinPrice, setSelectedMinPrice] = useState('500');
   const [selectedMaxPrice, setSelectedMaxPrice] = useState('2000');
 
+
+  useEffect(() => {
+    // Trigger the filter change only when any of the filter values are updated
+    onFilterChange();
+  }, [selectedCategory, selectedMinPrice, selectedMaxPrice, onFilterChange]);
+
   const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      category: e.target.value,
-    }));
+    const category = e.target.value;
+    setSelectedCategory(category);
+    setFilters((prevFilters) => {
+      const updated = { ...prevFilters, category };
+      return updated;
+    });
   };
 
   const handlePriceChange = () => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      minPrice: selectedMinPrice,
-      maxPrice: selectedMaxPrice,
-    }));
+    setFilters((prevFilters) => {
+      const updated = {
+        ...prevFilters,
+        minPrice: selectedMinPrice,
+        maxPrice: selectedMaxPrice,
+      };
+      return updated;
+    });
   };
 
   return (
-    <div className="border border-gray-300 w-[350px] p-4">
+    <div className="border border-gray-300 w-[350px] p-4 bg-white">
       <h2 className="text-xl font-bold mb-4">Filters</h2>
       
       {/* Category Filter */}
@@ -38,7 +48,6 @@ function Sidebar({ setFilters }) {
           <option value="clothing">Clothing</option>
           <option value="home">Home</option>
           <option value="books">Books</option>
-          {/* Add more categories here */}
         </select>
       </div>
       
@@ -80,7 +89,7 @@ function Sidebar({ setFilters }) {
         </div>
         <button
           onClick={handlePriceChange}
-          className="mt-2 w-full p-2 bg-blue-500 text-white rounded"
+          className="mt-2 w-full p-2 bg-black text-white rounded"
         >
           Apply Price Filter
         </button>

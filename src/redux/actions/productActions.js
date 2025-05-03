@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { addProductService } from '../../services/productService' 
+import { addProductService, fetchAllProductService } from '../../services/productService' 
 
 export const addNewProduct = createAsyncThunk(
     "product/create",
@@ -13,3 +13,15 @@ export const addNewProduct = createAsyncThunk(
         }
     }
 )
+
+export const fetchAllProducts = createAsyncThunk(
+    'product/fetchAll',
+    async (filters, { rejectWithValue }) => {
+      try {
+        const response =  await fetchAllProductService(filters)
+        return response; 
+      } catch (error) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to fetch products');
+      }
+    }
+  );

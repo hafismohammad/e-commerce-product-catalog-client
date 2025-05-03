@@ -8,7 +8,23 @@ export const addProductService = async (productData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log('response', response);
+    
+    return response.data; 
+  } catch (error) {
+    console.error("Error in add new product service:", error);
+    throw error; 
+  }
+};
+
+
+export const fetchAllProductService = async (filter) => {
+  try {
+    const queryParams = new URLSearchParams(filter).toString();
+    console.log('queryParams',queryParams);
+    
+    const response = await axios.get(`${API_URL}/api/products?${queryParams}`);
+
+    console.log('res servie', response);
     
     return response.data; 
   } catch (error) {

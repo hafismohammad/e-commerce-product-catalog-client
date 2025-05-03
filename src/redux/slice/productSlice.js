@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addNewProduct } from '../actions/productActions';
+import { addNewProduct, fetchAllProducts } from '../actions/productActions';  
 
 
 const initialState = {
@@ -15,32 +15,33 @@ const initialState = {
     reducers: {},
     extraReducers: (builder) => {
       builder
-        // .addCase(fetchAllProducts.pending, (state) => {
-        //   state.loading = true;
-        // })
-        // .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        //   state.loading = false;
-        //   state.products = action.payload.products;
-        // })
-        // .addCase(fetchAllProducts.rejected, (state, action) => {
-        //   state.loading = false;
-        //   state.error = action.payload;
-        // })
-  
-        .addCase(addNewProduct.pending, (state) => {
+      
+      .addCase(addNewProduct.pending, (state) => {
           state.loading = true;
         })
         .addCase(addNewProduct.fulfilled, (state, action) => {
-          state.loading = false;
-          console.log('action.payload',action.payload);
-          
-          state.products.push(action.payload); 
+            state.loading = false;
+            // console.log('action.payload',action.payload);
+            
+            state.products.push(action.payload); 
         })
         .addCase(addNewProduct.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        
+        .addCase(fetchAllProducts.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(fetchAllProducts.fulfilled, (state, action) => {
+          state.loading = false;
+          state.products =  action.payload.data; 
+        })
+        .addCase(fetchAllProducts.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
         })
-  
+
         // .addCase(updateProduct.pending, (state) => {
         //   state.loading = true;
         // })

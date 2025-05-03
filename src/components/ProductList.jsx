@@ -1,32 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import ProductCards from './ProductCard'
-import { fetchProductData } from '../api/products'
-import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom'
+// import { useDispatch } from 'react-redux'
 
 function ProductList() {
-    let [productData, setProductData] = useState([])
+  const {products} = useSelector((state) => state.product)
+console.log('products', products);
     
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
 
-    useEffect(() => {
-        const getProducts = async () => {
-            const products = await fetchProductData();
-            console.log(products);
-            
-            setProductData(products)
-          };
-        
-          getProducts();
-    }, [])
 
-    const handleSelect = (id) => {
-      navigate(`/product/${id}`)
-    }
+
+    // const handleSelect = (id) => {
+    //   navigate(`/product/${id}`)
+    // }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
-       {productData.map(product => (
-          <div key={product.id} onClick={() => handleSelect(product.id)} className="cursor-pointer">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6 ">
+       {products.map(product => (
+          <div key={product.id}  className="cursor-pointer">
           <ProductCards  key={product.id} product={product} />
         </div>
       ))}
