@@ -1,12 +1,46 @@
-# React + Vite
+# 🛍️ E-Commerce Product Catalog (MERN Stack)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive product catalog system built using the MERN stack (MongoDB, Express, React, Node.js) to manage and display products with filtering and search capabilities.
 
-Currently, two official plugins are available:
+## 🔧 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend**: React, Redux Toolkit
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Image Uploads**: Cloudinary + Multer
+- **Other**: Centralized error handling, repository pattern, constant status codes
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Product listing with grid view
+- Add, edit, delete products
+- Form validation
+- Search by name, filter by category & price range
+- Image upload and hosting on Cloudinary
+- User notifications via Toastify
+- Confirmation dialogs via SweetAlert2
+- Fully responsive design
+
+## 📁 Structure
+
+- `client/`: React app with Redux for state management
+- `server/`: Express API using repository pattern
+- Centralized error middleware and modular route handling
+
+## 📦 Server API Routes
+
+- `POST /api/products` – Add a product  
+- `GET /api/products` – Get all products (supports filtering by category, price, search query)  
+- `GET /api/products/:id` – Get a single product by ID  
+- `PUT /api/products/:id` – Update a product  
+- `DELETE /api/products/:id` – Delete a product 
+
+
+## 🛠️ Project Setup
+
+### Server
+
+```bash
+cd server
+npm install
+npm run dev  # runs server with nodemon
